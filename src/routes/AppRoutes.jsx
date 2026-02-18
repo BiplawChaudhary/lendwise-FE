@@ -9,6 +9,8 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import NotFound from "../pages/NotFound";
 import MerchantEkyc from "../pages/merchant/MerchantEkyc";
 import Settings from "../pages/Settings";
+import ResetPassword from "../pages/ResetPassword";
+import { useState } from "react";
 
 // ─────────────────────────────────────────────────────────────
 // Guard: Only accessible when NOT logged in (public routes)
@@ -57,6 +59,7 @@ function LoadingScreen() {
 // ─────────────────────────────────────────────────────────────
 function RootRedirect() {
   const { user, loading } = useAuth();
+
   console.log("user",user)
   if (loading) return <LoadingScreen />;
   if (!user) return <Navigate to="/login" replace />;
@@ -72,7 +75,7 @@ export default function AppRoutes() {
       {/* ── Public Routes ── */}
       <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
       <Route path="/forgot-password" element={<PublicRoute><ForgotPasswordPage /></PublicRoute>} />
-      <Route path="/settings" element={<PublicRoute><Settings /></PublicRoute>} />
+    <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
 
       {/* ── Merchant Routes ── */}
       <Route
@@ -92,6 +95,17 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute allowedRole="MERCHANT">
+            <Settings />
+          </ProtectedRoute>
+        }
+      />
+
+      
 
       {/* ── Admin Routes ── */}
       <Route

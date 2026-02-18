@@ -7,3 +7,7 @@ export const MERCHANT_MENU_ITEMS = [
   { label: "Ekyc", to: "/merchant/ekyc", icon: <EkycIcon /> },
   { label: "Settings", to: "/settings", icon: <SettingsIcon /> },
 ];
+
+export const ADMIN_MENU_ITEMS = [
+  { label: "Dashboard", to: "/admin/dashboard", icon: <DashboardIcon /> },
+];
