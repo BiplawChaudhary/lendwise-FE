@@ -11,6 +11,7 @@ import MerchantEkyc from "../pages/merchant/MerchantEkyc";
 import Settings from "../pages/Settings";
 import ResetPassword from "../pages/ResetPassword";
 import { useState } from "react";
+import RegisterMerchant from "../pages/merchant/RegisterMerchant";
 
 // ─────────────────────────────────────────────────────────────
 // Guard: Only accessible when NOT logged in (public routes)
@@ -74,6 +75,7 @@ export default function AppRoutes() {
 
       {/* ── Public Routes ── */}
       <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
+      <Route path="/register-merchant" element={<PublicRoute><RegisterMerchant/></PublicRoute>} />
       <Route path="/forgot-password" element={<PublicRoute><ForgotPasswordPage /></PublicRoute>} />
     <Route path="/reset-password" element={<PublicRoute><ResetPassword /></PublicRoute>} />
 

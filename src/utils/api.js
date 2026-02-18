@@ -35,8 +35,11 @@ export async function callApi({
 
   // Auto-inject authToken from sessionStorage if present
   const authToken = sessionStorage.getItem("authToken");
+  
   if (authToken) {
+    console.log("SESSION DATA: ",authToken );
     defaultHeaders["Authorization"] = `Bearer ${authToken}`;
+    defaultHeaders["authToken"] = authToken;
   }
 
   const finalHeaders = { ...defaultHeaders, ...headers };
@@ -56,7 +59,8 @@ export async function callApi({
   try {
     response = await fetch(`${BASE_URL}${url}`, config);
   } catch (networkError) {
-    const message = "Network error. Please check your connection.";
+    console.log("ERROR", networkError);
+    const message =  "Network error. Please check your connection.";
     if (showToast) showToast(message, "error");
     throw new Error(message);
   }

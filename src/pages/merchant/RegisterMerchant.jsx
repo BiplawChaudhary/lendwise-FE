@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useToast } from "../context/ToastContext";
-import { callApi } from "../utils/api";
-import "./LoginPage.css";
+import { useToast } from "../../context/ToastContext";
+import { callApi } from "../../utils/api";
+import "../LoginPage.css";
 
-export default function LoginPage() {
+export default function RegisterMerchant() {
   const navigate = useNavigate();
-  const { login } = useAuth();
   const { showToast } = useToast();
 
   const [form, setForm] = useState({ username: "", password: "" });
@@ -27,26 +25,28 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const response = await callApi({
-        url: "/auth/login",
+        url: "/auth/saveMerchant",
         method: "POST",
         body: { userEmail: form.username, userPassword: form.password },
         validateResponse: false, // We handle login manually
       });
 
       if (response.apiResponseCode === 200) {
-        const userData = response.apiResponseData.data;
-        login(userData); // Save to context + sessionStorage
+        showToast("User Created Successfully.", "success");
 
-        showToast("Welcome back! Logged in successfully.", "success");
-
-        // Redirect based on role
-        const role = userData.role;
-        navigate(role === "ADMIN" ? "/admin/dashboard" : "/merchant/dashboard");
+        navigate("/login");
       } else {
-        showToast(response.apiResponseMessage || "Login failed. Please try again.", "error");
+        showToast(
+          response.apiResponseMessage ||
+            "User creation failed. Please try again.",
+          "error",
+        );
       }
     } catch (err) {
-      showToast("Login failed. Please check your credentials.", "error");
+      showToast(
+        "User creation failed. Please check your credentials.",
+        "error",
+      );
     } finally {
       setLoading(false);
     }
@@ -58,8 +58,14 @@ export default function LoginPage() {
       <div className="login-left">
         <div className="login-left-content">
           <div className="brand-tagline">
-            <h1>Smart Lending,<br />Simplified.</h1>
-            <p>Manage your loan portfolio with clarity, speed, and confidence.</p>
+            <h1>
+              Smart Lending,
+              <br />
+              Simplified.
+            </h1>
+            <p>
+              Manage your loan portfolio with clarity, speed, and confidence.
+            </p>
           </div>
         </div>
       </div>
@@ -68,12 +74,25 @@ export default function LoginPage() {
       <div className="login-right">
         <div className="login-card">
           <div className="login-logo">
-            <img src="/logo.png" alt="Lendwise Logo" className="logo-img" onError={(e) => { e.target.style.display = "none"; }} />
+            <img
+              src="/logo.png"
+              alt="Lendwise Logo"
+              className="logo-img"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
+            />
             <span className="logo-text">Lendwise</span>
           </div>
-
-          <h2 className="login-title">Sign in to your account</h2>
-          <p className="login-subtitle">Enter your credentials to continue</p>
+          <button
+            type="button"
+            className="back-login-btn"
+            onClick={() => navigate("/login")}
+          >
+            ← Back to Login
+          </button>
+          <h2 className="login-title">Create your account</h2>
+          <p className="login-subtitle">Fill in your details to continue</p>
 
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
@@ -104,29 +123,19 @@ export default function LoginPage() {
               />
             </div>
 
+            {/* <div className="forgot-row">
+              <Link to="/forgot-password" className="forgot-link">Forgot password?</Link>
+            </div> */}
+
             <button type="submit" className="login-btn" disabled={loading}>
-              {loading ? <span className="spinner" /> : "Sign In"}
+              {loading ? <span className="spinner" /> : "Register Merchant"}
             </button>
-
-                  <div className="auth-row">
-  <Link to="/forgot-password" className="auth-link">
-    Forgot password?
-  </Link>
-</div>
-
-<div className="auth-row">
-  <span className="auth-text">
-    Are you new?
-  </span>
-  <Link to="/register-merchant" className="auth-link highlight">
-    Register here
-  </Link>
-</div>
-
           </form>
         </div>
 
-        <p className="login-footer">© {new Date().getFullYear()} Lendwise. All rights reserved.</p>
+        <p className="login-footer">
+          © {new Date().getFullYear()} Lendwise. All rights reserved.
+        </p>
       </div>
     </div>
   );
