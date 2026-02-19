@@ -12,7 +12,8 @@ import Settings from "../pages/Settings";
 import ResetPassword from "../pages/ResetPassword";
 import { useState } from "react";
 import RegisterMerchant from "../pages/merchant/RegisterMerchant";
-
+import ManageEkyc from "../pages/admin/ManageEkyc";
+import ManageMerchants from "../pages/admin/ManageMerchants";
 // ─────────────────────────────────────────────────────────────
 // Guard: Only accessible when NOT logged in (public routes)
 // ─────────────────────────────────────────────────────────────
@@ -118,6 +119,9 @@ export default function AppRoutes() {
           </ProtectedRoute>
         }
       />
+
+           <Route path="/admin/manage-ekyc" element={<ProtectedRoute allowedRole="ADMIN"><ManageEkyc /></ProtectedRoute>} />
+      <Route path="/admin/manage-merchants" element={<ProtectedRoute allowedRole="ADMIN"><ManageMerchants /></ProtectedRoute>} />
 
       {/* 404 */}
       <Route path="*" element={<NotFound />} />

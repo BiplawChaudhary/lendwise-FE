@@ -1,6 +1,8 @@
 import DashboardIcon from "../assets/DashboardIcon";
 import EkycIcon from "../assets/EkycIcon";
 import SettingsIcon from "../assets/SettingsIcon";
+import ManageEkycIcon from "../assets/ManageEkycIcon";
+import ManageMerchantsIcon from "../assets/ManageMerchantsIcon";
 
 export const MERCHANT_MENU_ITEMS = [
   { label: "Dashboard", to: "/merchant/dashboard", icon: <DashboardIcon /> },
@@ -8,6 +10,12 @@ export const MERCHANT_MENU_ITEMS = [
   { label: "Settings", to: "/settings", icon: <SettingsIcon /> },
 ];
 
+
+
+
 export const ADMIN_MENU_ITEMS = [
   { label: "Dashboard", to: "/admin/dashboard", icon: <DashboardIcon /> },
+  { label: "Manage eKYC", to: "/admin/manage-ekyc", icon: <ManageEkycIcon /> },
+  { label: "Manage Merchants", to: "/admin/manage-merchants", icon: <ManageMerchantsIcon /> },
+  { label: "Settings", to: "/settings", icon: <SettingsIcon /> },
 ];

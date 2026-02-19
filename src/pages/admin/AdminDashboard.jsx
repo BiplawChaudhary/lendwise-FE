@@ -1,22 +1,12 @@
 import DashboardLayout from "../../components/DashboardLayout";
 import { useAuth } from "../../context/AuthContext";
-
-const DashboardIcon = () => (
-  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
-    <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-  </svg>
-);
-
-const MENU_ITEMS = [
-  { label: "Dashboard", to: "/admin/dashboard", icon: <DashboardIcon /> },
-];
+import { ADMIN_MENU_ITEMS } from "../../config/MenuConfig";
 
 export default function AdminDashboard() {
   const { user } = useAuth();
 
   return (
-    <DashboardLayout menuItems={MENU_ITEMS}>
+    <DashboardLayout menuItems={ADMIN_MENU_ITEMS}>
       <div>
         <h1 style={{ fontSize: 28, fontWeight: 700, color: "#111827", margin: "0 0 4px" }}>
           Admin Panel 🛡️
