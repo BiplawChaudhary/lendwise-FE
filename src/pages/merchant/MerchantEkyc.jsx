@@ -30,13 +30,14 @@ export default function MerchantEkyc() {
   const { user } = useAuth();
   const { showToast } = useToast();
 
-  const kycStatus = sessionStorage.getItem("kycStatus") || "PENDING";
+  // const kycStatus = sessionStorage.getItem("kycStatus") || "PENDING";
 
   const [loading, setLoading] = useState(true);
   const [kycStatusData, setKycStatusData] = useState(null);     // from EKYC_STATUS
   const [stepData, setStepData] = useState({});                  // cached data per step
   const [currentStep, setCurrentStep] = useState(1);
   const [activeStepDataLoading, setActiveStepDataLoading] = useState(false);
+  const [kycStatus, setKycStatus] = useState("PENDING");
 
   // Determine display mode
   const isReadOnly = kycStatus === "UNDER_REVIEW" || kycStatus === "COMPLETED";
@@ -61,6 +62,7 @@ export default function MerchantEkyc() {
       if (res.apiResponseCode === 200) {
         const data = res.apiResponseData.data;
         setKycStatusData(data);
+        setKycStatus(data.kyc_status);
 
         // Determine which step to open
         if (data.onboarding_stage && (isEditable)) {

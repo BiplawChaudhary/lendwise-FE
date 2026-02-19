@@ -34,7 +34,7 @@ export default function EkycStatus(){
             onClick={() => navigate("/merchant/ekyc")}
           >
             <span style={{ fontWeight: 500 }}>
-              ⚠️ eKYC is pending. Please complete it.
+              ⚠️ Your eKYC verification is pending. Please complete it to apply for loan.
             </span>
 
             <button
