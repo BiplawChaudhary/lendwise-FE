@@ -20,6 +20,7 @@ export default function BusinessDetailsForm({ initialData, readOnly, onSuccess }
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
+    fonepayId : initialData?.fonepay_id || "",
     businessName: initialData?.business_name || "",
     businessType: initialData?.business_type || "",
     businessPanNumber: initialData?.business_pan_number || "",
@@ -54,6 +55,7 @@ export default function BusinessDetailsForm({ initialData, readOnly, onSuccess }
 
   const validate = () => {
     const requiredFields = [
+      ["fonepayId", "FonePay Id"],
       ["businessName", "Business Name"],
       ["businessType", "Business Type"],
       ["businessPanNumber", "Business PAN Number"],
@@ -115,6 +117,9 @@ export default function BusinessDetailsForm({ initialData, readOnly, onSuccess }
     <form onSubmit={handleSubmit}>
       <Section title="Business Information">
         <div style={grid2}>
+        <FormField label="FonePay Id" required>
+            <TextInput value={form.fonepayId} onChange={set("fonepayId")} placeholder="465786907912345" readOnly={readOnly} required />
+          </FormField>
           <FormField label="Business Name" required>
             <TextInput value={form.businessName} onChange={set("businessName")} placeholder="ABC Traders" readOnly={readOnly} required />
           </FormField>
